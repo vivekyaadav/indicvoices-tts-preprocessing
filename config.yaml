@@ -1,0 +1,124 @@
+audio:
+  min_duration_after_trim: 0.3
+  normalize_peak: 0.95
+  target_sr: 16000
+  top_db: 35.0
+  trim_silence: true
+dataset:
+  name: ai4bharat/IndicVoices
+  samples_per_language: 2000
+  split: train
+  streaming: true
+deepfilternet:
+  enabled: false
+  snr_flag_threshold: 20.0
+dnsmos:
+  enabled: true
+  min_bak: 2.0
+  min_ovrl: 2.0
+  min_sig: 2.0
+execution:
+  batch_size: 100
+  flush_every: 500
+  num_workers: 4
+  sample_rate: 16000
+hard_filters:
+  clipping_max_ratio: 0.01
+  drop_audio_duplicates: true
+  drop_text_duplicates: false
+  drop_verification_flags: true
+  duration_max_sec: 15.0
+  duration_min_sec: 1.5
+  rms_min: 0.005
+  script_purity_min: 0.85
+  silence_max_ratio: 0.6
+  snr_min_db: 5.0
+  voiced_min_ratio: 0.4
+  words_per_sec_max: 7.0
+  words_per_sec_min: 0.3
+languages:
+- assamese
+- bengali
+- bodo
+- dogri
+- gujarati
+- hindi
+- kannada
+- kashmiri
+- konkani
+- maithili
+- malayalam
+- manipuri
+- marathi
+- nepali
+- odia
+- punjabi
+- sanskrit
+- santali
+- sindhi
+- tamil
+- telugu
+- urdu
+output:
+  dir: ./output
+  save_kept_jsonl: true
+  save_plots: true
+  save_rejected_jsonl: true
+  save_summary_json: true
+sampling:
+  duration_strata:
+    2.0-4.0: 0.25
+    4.0-8.0: 0.45
+    8.0-12.0: 0.3
+  gender_balance:
+    target_female_pct: 50.0
+    target_male_pct: 50.0
+  speaker_diversity:
+    max_pct_per_speaker: 5.0
+    max_samples_per_speaker: 50
+  speaking_rate_bins:
+    fast:
+    - 4.0
+    - 7.0
+    medium:
+    - 1.5
+    - 4.0
+    slow:
+    - 0.3
+    - 1.5
+  strategy: best_effort
+  target_per_language: 1000
+scoring:
+  composite_threshold: 50.0
+soft_metrics:
+  dnsmos:
+    enabled: false
+    good_ovrl: 4.5
+    min_ovrl: 1.0
+    weight: 0.25
+  rms_energy:
+    good_rms: 0.1
+    min_rms: 0.005
+    weight: 0.05
+  snr:
+    good_db: 35.0
+    min_db: 5.0
+    weight: 0.3
+  spectral_flatness:
+    good_flat: 0.0
+    max_flat: 0.3
+    weight: 0.1
+  speech_quality:
+    good_quality: 1.0
+    min_quality: 0.0
+    weight: 0.2
+  voiced_ratio:
+    good_ratio: 1.0
+    min_ratio: 0.4
+    weight: 0.1
+vad_mode: silero
+whisper:
+  enabled: false
+  lang_confidence_min: 0.7
+  max_cer: 0.35
+  model_size: small

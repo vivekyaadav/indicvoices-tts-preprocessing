@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.log
+.env
+*.onnx
+output_filtered_v5/per_language/
