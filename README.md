@@ -151,8 +151,21 @@ pip install -r requirements.txt
 
 ### Configuration
 
-- Thresholds and filter settings: `config.yaml`
-- Language list and output directory (`./output_filtered_v5`): top of `run_v3.py`
+Settings come from two places:
+
+- **`config.yaml`**: base settings (composite-score weights and threshold, soft-metric ranges, VAD mode, execution options).
+- **`run_v3.py`**: loads `config.yaml`, then overrides the values below at runtime. Edit these in `run_v3.py`, not in the YAML.
+
+| Setting | Value | Where |
+|---------|-------|-------|
+| Duration range | 1.5-15 s | override in `run_v3.py` |
+| DNSMOS raw gate (Pass 1) | >= 1.5 | `DNSMOS_RAW_MIN` |
+| Pre-selected candidates per language | 600 | `N_CANDIDATES` |
+| Max samples per speaker | 15 | `MAX_PER_SPEAKER` |
+| DNSMOS strict gate (Pass 2) | >= 2.7 | `DNSMOS_CLEAN_MIN` |
+| Whisper CER check | disabled | override in `run_v3.py` |
+
+The language list and output directory (`./output_filtered_v5`) are also set at the top of `run_v3.py`.
 
 > **Note:** `run_v3.py` currently calls `os.chdir('/root/indic_filter')`, the working directory used on the vast.ai instance. Change this line to your own project path before running elsewhere.
 
@@ -216,7 +229,7 @@ python visualize.py
 - **Small scale:** ~0.77 hours per language (research scale, not production).
 - **Gender imbalance in some languages**, reflecting the raw data: Manipuri 74% male, Sanskrit 72% male, Tamil 70% female.
 - **No human MOS evaluation.**
-- **No Whisper transcript verification**, due to Indic-script mismatch.
+- **No Whisper transcript verification:** CER checking is implemented but disabled for all languages; DNSMOS is the quality gate.
 
 ---
 
