@@ -1,0 +1,14 @@
+numpy
+pandas
+pyyaml
+librosa
+soundfile
+matplotlib
+datasets
+pyloudnorm
+onnxruntime
+silero-vad
+deepfilternet
+openai-whisper
+torch==2.1.0
+torchaudio==2.1.0

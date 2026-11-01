@@ -136,36 +136,41 @@ indicvoices-tts-preprocessing/
 
 ## Getting Started
 
-> **Note:** adjust the commands below to match your actual workflow.
-
 ### Requirements
 
-- Python 3.10+
-- PyTorch 2.1.0 with CUDA 12.1 (GPU needed for Pass 2)
-- Silero VAD, DeepFilterNet3, DNSMOS P.835
-- librosa, pandas, PyYAML
+- Python 3.10
+- NVIDIA GPU with CUDA 12.1 for Pass 2 (PyTorch 2.1.0)
+- Models: Silero VAD, DeepFilterNet3, DNSMOS P.835
+- Python packages listed in `requirements.txt`
 
 ```bash
 git clone https://github.com/vivekyaadav/indicvoices-tts-preprocessing.git
 cd indicvoices-tts-preprocessing
-pip install -r requirements.txt   # TODO: add requirements.txt
+pip install -r requirements.txt
 ```
+
+### Configuration
+
+- Thresholds and filter settings: `config.yaml`
+- Language list and output directory (`./output_filtered_v5`): top of `run_v3.py`
+
+> **Note:** `run_v3.py` currently calls `os.chdir('/root/indic_filter')`, the working directory used on the vast.ai instance. Change this line to your own project path before running elsewhere.
 
 ### Run
 
 ```bash
-# 1. (Optional) Audit the raw data
 python audit_raw.py
-
-# 2. Run the full pipeline (settings are read from config.yaml)
 python run_v3.py
-
-# 3. (Optional) Monitor a running job
 python monitor.py
-
-# 4. Generate plots
 python visualize.py
 ```
+
+| Script | Purpose |
+|--------|---------|
+| `audit_raw.py` | Audit the raw input data |
+| `run_v3.py` | Run the full two-pass pipeline |
+| `monitor.py` | Monitor a running job |
+| `visualize.py` | Generate the plots |
 
 ---
 
