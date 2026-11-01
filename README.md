@@ -51,7 +51,7 @@ PRE-SELECTION
   • Speaker cap: max 15 samples per speaker
         ↓
 PASS 2 — Deep Processing (GPU)
-  • DNSMOS strict gate ≥ 2.7
+  • DNSMOS strict gate ≥ 2.7 (scored on raw audio, before denoising)
   • DeepFilterNet3 noise removal
   • LUFS normalization: −23 LUFS (EBU R128)
   • Composite quality score ≥ 50  →  263–520 final samples kept per language

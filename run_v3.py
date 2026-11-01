@@ -2,10 +2,10 @@
 run_v3.py — Two-pass pipeline
 ==============================
 Pass 1 (CPU/fast): Hard filters → Silero VAD → DNSMOS raw → Pre-select 600
-Pass 2 (GPU/deep): DeepFilterNet → DNSMOS clean → Whisper CER → Final keep
+Pass 2 (GPU/deep): DNSMOS strict gate (raw audio) → DeepFilterNet → LUFS normalize → Composite score → Final keep
 
 Goals:
-  - Clean audio (DNSMOS >= 3.0 after DeepFilter)
+  - Clean audio (DNSMOS >= 2.7, scored on raw audio before DeepFilter)
   - 1000 input samples per language
   - Better stratification (DNSMOS-sorted)
   - Text normalization
@@ -286,7 +286,7 @@ def process_language(lang):
     log.info(f'Pre-selected: {len(selected_candidates)} for deep processing')
 
     # ── PASS 2: Deep processing on candidates ─────────────────
-    log.info('Pass 2: DeepFilterNet + DNSMOS clean + Whisper...')
+    log.info('Pass 2: DNSMOS strict gate + DeepFilterNet + LUFS...')
     kept_rows = []
 
     for s in selected_candidates:
